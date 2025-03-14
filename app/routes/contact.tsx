@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node"
+import type { MetaFunction } from "react-router"
 import { Header } from "~/components/header"
 
 const title = "Contact Us | Justd Remix Starter Kit"

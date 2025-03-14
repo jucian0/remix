@@ -1,46 +1,41 @@
 {
-	"name": "justd-remix-sk",
-	"private": true,
-	"sideEffects": false,
-	"type": "module",
-	"scripts": {
-		"build": "remix vite:build",
-		"dev": "remix vite:dev",
-		"typecheck": "tsc",
-		"preview": "bun run build && vite",
-		"format": "biome lint --fix && biome check --write",
-		"format:unsafe": "biome check --unsafe --write"
-	},
-	"dependencies": {
-		"@remix-run/node": "^2.15.2",
-		"@remix-run/react": "^2.15.2",
-		"@remix-run/serve": "^2.15.2",
-		"cmdk": "^1.0.4",
-		"input-otp": "^1.4.1",
-		"isbot": "^4.4.0",
-		"justd-icons": "^1.10.8",
-		"motion": "^11.15.0",
-		"react": "^19.0.0",
-		"react-aria-components": "^1.5.0",
-		"react-dom": "^19.0.0",
-		"remix-themes": "^1.5.1",
-		"sonner": "^1.7.1",
-		"tailwind-merge": "^2.6.0",
-		"tailwind-variants": "^0.2.1",
-		"tailwindcss": "^4.0.0-beta.8",
-		"tailwindcss-animate": "^1.0.7"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
-		"@remix-run/dev": "^2.15.2",
-		"@tailwindcss/vite": "^4.0.0-beta.8",
-		"@types/react": "^19.0.2",
-		"@types/react-dom": "^19.0.2",
-		"typescript": "^5.7.2",
-		"vite": "^6.0.6",
-		"vite-tsconfig-paths": "^4.3.2"
-	},
-	"engines": {
-		"node": ">=20.0.0"
-	}
+  "name": "react-router",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@react-router/node": "^7.3.0",
+    "@react-router/serve": "^7.3.0",
+    "isbot": "^5.1.17",
+    "justd-icons": "^1.10.8",
+    "motion": "^11.15.0",
+    "react": "^19.0.0",
+    "react-aria": "^3.38.1",
+    "react-aria-components": "^1.7.1",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.3.0",
+    "sonner": "^1.7.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwind-variants": "^0.2.1",
+    "tailwindcss": "^4.0.14",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@react-router/dev": "^7.3.0",
+    "@tailwindcss/vite": "^4.0.14",
+    "@types/node": "^20",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "react-router-devtools": "^1.1.0",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "packageManager": "pnpm@9.15.3"
 }

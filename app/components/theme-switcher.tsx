@@ -1,20 +1,25 @@
-import { IconMoon, IconSun } from "justd-icons"
-import { Theme, useTheme } from "remix-themes"
-import { Button } from "ui"
+import { IconComputer, IconMoon, IconSun, IconColorPalette } from "justd-icons"
+import type { Key } from "react-aria"
+import { useSubmit } from "react-router"
+import {  buttonStyles, Menu } from "ui"
+import { useColorScheme } from "~/modules/color-scheme/component"
 
 export function ThemeSwitcher() {
-	const [theme, setTheme] = useTheme()
-	const switchTheme = () => {
-		if (theme === "dark") {
-			setTheme(Theme.LIGHT)
-		} else {
-			setTheme(Theme.DARK)
-		}
+	const colorScheme = useColorScheme()
+	const submit = useSubmit()
+
+	function handleChangeTheme(theme: Key){
+		submit({colorScheme: theme}, {method: "post", action: "/color-scheme"})
 	}
 
 	return (
-		<Button appearance="outline" size="square-petite" aria-label="Switch theme" onPress={switchTheme}>
-			{Theme.LIGHT === theme ? <IconSun /> : <IconMoon />}
-		</Button>
+		<Menu>
+		<Menu.Trigger className={buttonStyles({ appearance: "outline", size: "square-petite" })}><IconColorPalette/></Menu.Trigger>
+		<Menu.Content placement="bottom" onAction={handleChangeTheme}>
+		  <Menu.Item id="light"><IconSun/> Light</Menu.Item>
+		  <Menu.Item id="dark"><IconMoon/>Dark</Menu.Item>
+		  <Menu.Item id="system"><IconComputer/> System</Menu.Item>
+		</Menu.Content>
+	  </Menu>
 	)
 }

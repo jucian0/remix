@@ -1,6 +1,5 @@
-import { useHref, useNavigate } from "@remix-run/react"
 import { RouterProvider as Provider } from "react-aria-components"
-import type { NavigateOptions } from "react-router-dom"
+import { useHref, useNavigate, type NavigateOptions } from "react-router"
 
 declare module "react-aria-components" {
 	interface RouterConfig {

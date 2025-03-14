@@ -5,14 +5,14 @@ import {
 	IconTriangleExclamationFill,
 } from "justd-icons"
 import { Toaster as ToasterPrimitive, type ToasterProps } from "sonner"
-import { useTheme } from "~/components/theme-provider"
 import { cn } from "~/utils/classes"
 
 import { buttonStyles } from "./button"
 import { Loader } from "./loader"
+import { useColorScheme } from "~/modules/color-scheme/component"
 
 const Toast = ({ ...props }: ToasterProps) => {
-	const { theme = "system" } = useTheme()
+	const theme = useColorScheme()
 	return (
 		<ToasterPrimitive
 			theme={theme as ToasterProps["theme"]}

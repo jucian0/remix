@@ -1,18 +1,27 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node"
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react"
-import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes"
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+} from "react-router";
+
 import { Toast } from "ui"
 import { AppNavbar } from "~/app-navbar"
 import { Footer } from "~/components/footer"
 import stylesheet from "~/tailwind.css?url"
-import { themeSessionResolver } from "./sessions.server"
 
-export async function loader({ request }: LoaderFunctionArgs) {
-	const { getTheme } = await themeSessionResolver(request)
-	return { theme: getTheme() }
+import type { Route } from "./+types/root";
+import { parseColorScheme } from "./modules/color-scheme/server";
+import { useColorScheme } from "./modules/color-scheme/component";
+
+export async function loader({ request }: Route.LoaderArgs) {
+	let colorScheme = await parseColorScheme(request);
+
+	return { colorScheme };
 }
 
-export const links: LinksFunction = () => [
+export const links: Route.LinksFunction = () => [
 	{ rel: "stylesheet", href: stylesheet },
 	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
 	{
@@ -24,30 +33,25 @@ export const links: LinksFunction = () => [
 		rel: "stylesheet",
 		href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
 	},
-]
+];
 
 export default function App() {
-	const data = useLoaderData<typeof loader>()
-
-	return (
-		<ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
-			<RootLayout theme={data.theme}>
-				<Outlet />
-			</RootLayout>
-		</ThemeProvider>
-	)
+	return <Outlet />;
 }
 
-function RootLayout({ theme, children }: { theme: string | null; children: React.ReactNode }) {
-	const [currentTheme] = useTheme()
+export function Layout({ children }: { children: React.ReactNode }) {
+	let colorScheme = useColorScheme();
 
 	return (
-		<html lang="en" data-theme={currentTheme ?? theme ?? ""} className={currentTheme ?? theme ?? ""}>
+		<html
+			lang="en"
+			className={colorScheme === "dark" ? "dark" : ""}
+			suppressHydrationWarning
+		>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
 				<Meta />
-				<PreventFlashOnWrongTheme ssrTheme={Boolean(theme)} />
 				<Links />
 			</head>
 			<body className="min-h-svh bg-tertiary font-sans antialiased">
@@ -59,5 +63,5 @@ function RootLayout({ theme, children }: { theme: string | null; children: React
 				<Scripts />
 			</body>
 		</html>
-	)
+	);
 }
